@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anime Eternal — Number Table (Oyuna Uyumlu)</title>
+  <style>
+    :root {
+      --bg: #0b0d10; /* koyu, göz yormayan */
+      --panel: #12161b;
+      --text: #e6ebf0;
+      --muted: #9aa8b2;
+      --accent: #7aa2ff;
+      --border: #1d232b;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    .wrap {
+      max-width: 980px; margin: 24px auto; padding: 16px; 
+    }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 12px 12px 2px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.24);
+    }
+    h1 { font-size: 20px; margin: 0 0 8px; letter-spacing: .2px; }
+    p.subtitle { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+    .toolbar { display: flex; gap: 8px; align-items: center; margin: 8px 0 10px; }
+    .search {
+      flex: 1; min-width: 180px;
+      background: #0f1318; color: var(--text);
+      border: 1px solid var(--border); border-radius: 10px; 
+      padding: 8px 10px; font-size: 14px;
+    }
+    .btn { border: 1px solid var(--border); background: #0f1318; color: var(--text);
+      padding: 8px 10px; border-radius: 10px; font-size: 13px; cursor: pointer;
+    }
+    .btn:hover { border-color: #2a3340; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left; font-weight: 600; font-size: 13px; color: var(--muted);
+      padding: 8px 10px; border-bottom: 1px solid var(--border);
+      user-select: none; cursor: pointer;
+    }
+    tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    tbody tr:hover { background: #0f1318; }
+    .mono { font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    footer { color: var(--muted); font-size: 12px; margin: 10px 2px 14px; }
+    .smallgap { height: 8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Anime Eternal — Number Table</h1>
+      <p class="subtitle">Bu tablo Anime Eternal oyunundaki sayı kısaltmalarına göre düzenlendi (v16.0 kaynak listesi kullanılarak). Notlar kaldırıldı, aralıklar sıkılaştırıldı.</p>
+
+      <div class="toolbar">
+        <input id="q" class="search" placeholder="Tabloda ara (ör. Octillion, 10^27, Oc)…" />
+        <button class="btn" id="reset">Sıfırla</button>
+        <button class="btn" id="copy">Seçimi kopyala</button>
+      </div>
+
+      <div class="smallgap"></div>
+      <table id="tbl" aria-label="Large numbers table">
+        <thead>
+          <tr>
+            <th data-sort="abbr">Abbrev</th>
+            <th data-sort="name">İsim (Short Scale)</th>
+            <th data-sort="power">Değer (10^n)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>K</td><td>Thousand</td><td class="mono">10^3</td></tr>
+          <tr><td>M</td><td>Million</td><td class="mono">10^6</td></tr>
+          <tr><td>B</td><td>Billion</td><td class="mono">10^9</td></tr>
+          <tr><td>T</td><td>Trillion</td><td class="mono">10^12</td></tr>
+          <tr><td>Qa</td><td>Quadrillion</td><td class="mono">10^15</td></tr>
+          <tr><td>Qi</td><td>Quintillion</td><td class="mono">10^18</td></tr>
+          <tr><td>Sx</td><td>Sextillion</td><td class="mono">10^21</td></tr>
+          <tr><td>Sp</td><td>Septillion</td><td class="mono">10^24</td></tr>
+          <tr><td>Oc</td><td>Octillion</td><td class="mono">10^27</td></tr>
+          <tr><td>No</td><td>Nonillion</td><td class="mono">10^30</td></tr>
+          <tr><td>De</td><td>Decillion</td><td class="mono">10^33</td></tr>
+          <tr><td>UD</td><td>Undecillion</td><td class="mono">10^36</td></tr>
+          <tr><td>DD</td><td>Duodecillion</td><td class="mono">10^39</td></tr>
+          <tr><td>TD</td><td>Tredecillion</td><td class="mono">10^42</td></tr>
+          <tr><td>QaD</td><td>Quattuordecillion</td><td class="mono">10^45</td></tr>
+          <tr><td>QiD</td><td>Quindecillion</td><td class="mono">10^48</td></tr>
+          <tr><td>SxD</td><td>Sexdecillion</td><td class="mono">10^51</td></tr>
+          <tr><td>SpD</td><td>Septendecillion</td><td class="mono">10^54</td></tr>
+          <tr><td>OcD</td><td>Octodecillion</td><td class="mono">10^57</td></tr>
+          <tr><td>NoD</td><td>Novemdecillion</td><td class="mono">10^60</td></tr>
+          <tr><td>Vg</td><td>Vigintillion</td><td class="mono">10^63</td></tr>
+          <tr><td>UVg</td><td>Unvigintillion</td><td class="mono">10^66</td></tr>
+          <tr><td>DVg</td><td>Duovigintillion</td><td class="mono">10^69</td></tr>
+          <tr><td>TVg</td><td>Trevigintillion</td><td class="mono">10^72</td></tr>
+          <tr><td>QAVg</td><td>Quattuorvigintillion</td><td class="mono">10^75</td></tr>
+          <tr><td>QIVg</td><td>Quinvigintillion</td><td class="mono">10^78</td></tr>
+          <tr><td>SxVg</td><td>Sexvigintillion</td><td class="mono">10^81</td></tr>
+          <tr><td>SpVg</td><td>Septenvigintillion</td><td class="mono">10^84</td></tr>
+          <tr><td>OcVg</td><td>Octovigintillion</td><td class="mono">10^87</td></tr>
+          <tr><td>NVg</td><td>Novemvigintillion</td><td class="mono">10^90</td></tr>
+        </tbody>
+      </table>
+
+      <footer>
+        Kaynak: Super Power Fighting Simulator Wiki – Number Table (v16.0). Bu sayfa, yalnızca mevcut listeyi gösterir; notlar ve gereksiz boşluklar kaldırıldı.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Basit arama ve sıralama
+    const q = document.querySelector('#q');
+    const resetBtn = document.querySelector('#reset');
+    const copyBtn = document.querySelector('#copy');
+    const table = document.querySelector('#tbl');
+
+    // Arama
+    q.addEventListener('input', () => {
+      const term = q.value.trim().toLowerCase();
+      for (const row of table.tBodies[0].rows) {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      }
+    });
+    resetBtn.addEventListener('click', () => { q.value=''; q.dispatchEvent(new Event('input')); });
+
+    // Kopyalama (seçili satır yoksa tüm tablo)
+    copyBtn.addEventListener('click', async () => {
+      let text = '';
+      const rows = [...table.tBodies[0].rows].filter(r => r.style.display !== 'none');
+      text += 'Abbrev\tName\t10^n\n';
+      for (const r of rows) {
+        text += `${r.cells[0].innerText}\t${r.cells[1].innerText}\t${r.cells[2].innerText}\n`;
+      }
+      try { await navigator.clipboard.writeText(text); copyBtn.textContent = 'Kopyalandı'; setTimeout(()=>copyBtn.textContent='Seçimi kopyala', 1400); } catch {}
+    });
+
+    // Sıralama
+    const parsePower = (val) => {
+      // 10^123 => 123 sayısını döndür
+      const m = String(val).match(/10\^(\d+)/);
+      return m ? parseInt(m[1], 10) : Number.NEGATIVE_INFINITY;
+    };
+
+    let sortState = { key: 'power', dir: 1 };
+    table.tHead.addEventListener('click', (e) => {
+      const th = e.target.closest('th');
+      if (!th) return;
+      const key = th.dataset.sort;
+      const rows = Array.from(table.tBodies[0].rows);
+
+      rows.sort((a,b) => {
+        let av, bv;
+        if (key === 'power') { av = parsePower(a.cells[2].innerText); bv = parsePower(b.cells[2].innerText); }
+        else if (key === 'abbr') { av = a.cells[0].innerText; bv = b.cells[0].innerText; }
+        else { av = a.cells[1].innerText; bv = b.cells[1].innerText; }
+        return sortState.dir * (av > bv ? 1 : av < bv ? -1 : 0);
+      });
+
+      // yön değiştir
+      sortState = { key, dir: (sortState.key === key ? -sortState.dir : 1) };
+
+      // yeniden ekle
+      const tb = table.tBodies[0];
+      rows.forEach(r => tb.appendChild(r));
+    });
+  </script>
+</body>
+</html>
